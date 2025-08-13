@@ -1,0 +1,11 @@
+#include <windows.h>
+#include <ntverp.h>
+
+#define VER_FILETYPE              VFT_DLL
+#define VER_FILESUBTYPE           VFT2_UNKNOWN
+#define VER_FILEDESCRIPTION_STR   "Simple 7 key layout"
+#define VER_INTERNALNAME_STR      "KBDIRH"
+#define VER_ORIGINALFILENAME_STR  "kbdirh.dll"
+
+#define VER_LANGNEUTRAL
+#include "common.ver"
