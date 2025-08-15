@@ -19,13 +19,12 @@
 #define ATTR_KBD_DATA
 
 // スキャンコード、仮想キーコード対応表
-// スキャンコードmに対応する仮想キーコードで、SA2VK[m]を初期化する
 static ATTR_KBD_DATA USHORT SC2VK[] = {
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 'R' ,
-    0xff, 0xff, 0xff, 'I' , 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff, 0xff, 'H' , 0xff, 0xff, 0xff, 0xff,
-    VK_OEM_AUTO | KBDSPECIAL, VK_LSHIFT,
+    0xff, 0xff, 0xff      , 0xff, 0xff    , 0xff, 0xff, 0xff, 0xff      , 0xff,
+    0xff, 0xff, 0xff      , 0xff, VK_BACK , 0xff, 0xff, 0xff, 0xff      , 'R' ,
+    0xff, 0xff, 0xff      , 'I' , 0xff    , 0xff, 0xff, 0xff, VK_RETURN , 0xff,
+    0xff, 0xff, 0xff      , 0xff, 0xff    , 'H' , 0xff, 0xff, 0xff      , 0xff,
+    0xff, VK_OEM_AUTO | KBDSPECIAL, VK_LSHIFT ,
 };
 
 // キーの名前一覧
@@ -33,6 +32,8 @@ static ATTR_KBD_DATA USHORT SC2VK[] = {
 static ATTR_KBD_DATA VSC_LPWSTR KeyName[] = {
     {0x29, L"半角全角"},
     {0x2a, L"LShift"},
+    {0x1c, L"改行"},
+    {0x0e, L"BS"},
     {0x00, NULL}
 };
 
@@ -65,10 +66,12 @@ static ATTR_KBD_DATA MODIFIERS Modifier = {
 // 属性CAPLOKは、CapsLock状態の影響を受けることを示す
 static ATTR_KBD_DATA VK_TO_WCHARS2 VKOutputChar2[] = {
     // 仮想キーコード   , キーの属性            ,        {none ,Shift }
-    {.VirtualKey = 'H', .Attributes = CAPLOK, .wch = {L'h' , L'H' }},
-    {.VirtualKey = 'I', .Attributes = CAPLOK, .wch = {L'i' , L'I' }},
-    {.VirtualKey = 'R', .Attributes = CAPLOK, .wch = {L'r' , L'R' }},
-    {.VirtualKey = 0  , .Attributes = 0     , .wch = {L'\0', L'\0'}}
+    {.VirtualKey = 'H',       .wch = {L'h' , L'H' }},
+    {.VirtualKey = 'I',       .wch = {L'i' , L'I' }},
+    {.VirtualKey = 'R',       .wch = {L'r' , L'R' }},
+    {.VirtualKey = VK_RETURN, .wch = {L'\n', L'\n'}},
+    {.VirtualKey = VK_BACK  , .wch = {L'\b', L'\b'}},
+    {.VirtualKey = 0  ,       .wch = {L'\0', L'\0'}}
 };
 
 // 出力文字リスト一覧
