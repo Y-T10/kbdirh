@@ -51,11 +51,11 @@ static ATTR_KBD_DATA VK_TO_BIT VKBitPos[] = {
 // * 2: かなキー押下
 static ATTR_KBD_DATA MODIFIERS Modifier = {
     .pVkToBit = (PVK_TO_BIT)(VKBitPos),
-    .wMaxModBits = 8,
+    .wMaxModBits = 1,
     .ModNumber = {
-        /*添字   */               // 押下されているキー
-        /*0b0000*/ 0,            // なし
-        /*0b0001*/ 1,            // Shift
+        //-----押下状態-----||--押下状態番号--*/              
+        /*  3,      2,    1*/ 0,          
+        /*            Shift*/ 1,          
     }
 };
 
