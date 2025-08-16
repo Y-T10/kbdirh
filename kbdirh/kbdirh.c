@@ -107,26 +107,25 @@ static ATTR_KBD_DATA VK_F VKFuncTable[] = {
         .NLSFEProcCurrent = KBDNLS_INDEX_NORMAL, // NLSFEProcを最初に使用する
         .NLSFEProcSwitch = 0x00,                 // NLSFEProcAltを使用しない
         .NLSFEProc = {
-        // 修飾キーの押下状態
-        // TODO: 各動作を確認する
-        {KBDNLS_SBCSDBCS, 0},   // none              
-        {KBDNLS_SBCSDBCS, 0},   // Shift             
-        {KBDNLS_NULL,0},        // Control           
-        {KBDNLS_NULL,0},        // Shift,Control     
-        {KBDNLS_NULL,0},        // Alt               
-        {KBDNLS_NULL,0},        // Shift,Alt         
-        {KBDNLS_NULL,0},        // Control,Alt       
-        {KBDNLS_NULL,0}         // Shift,Control,Alt 
+        //-----押下状態-----|||------入力処理------*/ 
+        /*  3,      2,    1*/ {KBDNLS_SBCSDBCS,0},
+        /*            Shift*/ {KBDNLS_SBCSDBCS,0}, 
+        /*    Control      */ {KBDNLS_NULL,0},
+        /*    Control Shift*/ {KBDNLS_NULL,0},
+        /*Alt              */ {KBDNLS_NULL,0},
+        /*Alt         Shift*/ {KBDNLS_NULL,0},
+        /*Alt Control      */ {KBDNLS_NULL,0},
+        /*Alt Control Shift*/ {KBDNLS_NULL,0}
         },
         .NLSFEProcAlt = {
-            {KBDNLS_NULL,0},
-            {KBDNLS_NULL,0},
-            {KBDNLS_NULL,0},
-            {KBDNLS_NULL,0},
-            {KBDNLS_NULL,0},
-            {KBDNLS_NULL,0},
-            {KBDNLS_NULL,0},
-            {KBDNLS_NULL,0}
+        /*  3,      2,    1*/ {KBDNLS_NULL,0},
+        /*            Shift*/ {KBDNLS_NULL,0},
+        /*    Control      */ {KBDNLS_NULL,0},
+        /*    Control Shift*/ {KBDNLS_NULL,0},
+        /*Alt              */ {KBDNLS_NULL,0},
+        /*Alt         Shift*/ {KBDNLS_NULL,0},
+        /*Alt Control      */ {KBDNLS_NULL,0},
+        /*Alt Control Shift*/ {KBDNLS_NULL,0}
         }
     }
 };
