@@ -81,7 +81,7 @@ static ATTR_KBD_DATA VK_TO_WCHAR_TABLE OutputCharLists[] = {
 };
 
 // レイアウト情報
-static ATTR_KBD_DATA KBDTABLES LayoutInfo = {
+ATTR_KBD_DATA KBDTABLES LayoutInfo = {
     // 修飾情報
     .pCharModifiers = &Modifier,
     // 出力文字
