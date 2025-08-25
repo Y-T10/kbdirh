@@ -27,6 +27,14 @@ static ATTR_KBD_DATA USHORT SC2VK[] = {
     0xff, VK_OEM_AUTO | KBDSPECIAL, VK_LSHIFT ,
 };
 
+static ATTR_KBD_DATA VSC_VK EOSC2VK[] = {
+    {.Vsc = 0, .Vk = 0 }
+};
+
+static ATTR_KBD_DATA VSC_VK E1SC2VK[] = {
+    {.Vsc = 0, .Vk = 0 }
+};
+
 // キーの名前一覧
 // 修飾キーの名称を定義する
 static ATTR_KBD_DATA VSC_LPWSTR KeyName[] = {
@@ -54,7 +62,7 @@ static ATTR_KBD_DATA MODIFIERS Modifier = {
     .wMaxModBits = 1,
     .ModNumber = {
         //-----押下状態-----||--押下状態番号--*/              
-        /*  3,      2,    1*/ 0,          
+        /*  3,      2,    1*/ 0,
         /*            Shift*/ 1,          
     }
 };
@@ -93,8 +101,8 @@ ATTR_KBD_DATA KBDTABLES LayoutInfo = {
     // スキャンコード変換情報
     .pusVSCtoVK = SC2VK,
     .bMaxVSCtoVK = sizeof(SC2VK) / sizeof(SC2VK[0]),
-    .pVSCtoVK_E0 = NULL,
-    .pVSCtoVK_E1 = NULL,
+    .pVSCtoVK_E0 = EOSC2VK,
+    .pVSCtoVK_E1 = E1SC2VK,
     // レイアウト情報
     .dwType = KEYBOARD_TYPE_JAPAN
 };
