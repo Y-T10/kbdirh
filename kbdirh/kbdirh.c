@@ -118,12 +118,12 @@ static ATTR_KBD_DATA VK_F VKFuncTable[] = {
         //-----押下状態-----|||------入力処理------*/ 
         /*  3,      2,    1*/ {KBDNLS_SBCSDBCS,0},
         /*            Shift*/ {KBDNLS_SBCSDBCS,0}, 
-        /*    Control      */ {KBDNLS_NULL,0},
-        /*    Control Shift*/ {KBDNLS_NULL,0},
-        /*Alt              */ {KBDNLS_NULL,0},
-        /*Alt         Shift*/ {KBDNLS_NULL,0},
-        /*Alt Control      */ {KBDNLS_NULL,0},
-        /*Alt Control Shift*/ {KBDNLS_NULL,0}
+        /*    Control      */ {KBDNLS_NOEVENT,0},
+        /*    Control Shift*/ {KBDNLS_NOEVENT,0},
+        /*Alt              */ {KBDNLS_NOEVENT,0},
+        /*Alt         Shift*/ {KBDNLS_NOEVENT,0},
+        /*Alt Control      */ {KBDNLS_NOEVENT,0},
+        /*Alt Control Shift*/ {KBDNLS_NOEVENT,0}
         },
         .NLSFEProcAlt = {
         /*  3,      2,    1*/ {KBDNLS_NULL,0},
