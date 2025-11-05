@@ -18,11 +18,12 @@
 
 // スキャンコード、仮想キーコード対応表
 static USHORT SC2VK[] = {
-    0xff, 0xff, 0xff      , 0xff, 0xff    , 0xff, 0xff, 0xff, 0xff      , 0xff,
-    0xff, 0xff, 0xff      , 0xff, VK_BACK , 0xff, 0xff, 0xff, 0xff      , 'R' ,
-    0xff, 0xff, 0xff      , 'I' , 0xff    , 0xff, 0xff, 0xff, VK_RETURN , 0xff,
-    0xff, 0xff, 0xff      , 0xff, 0xff    , 'H' , 0xff, 0xff, 0xff      , 0xff,
-    0xff, VK_OEM_AUTO | KBDSPECIAL, VK_LSHIFT ,
+    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // 0x07
+    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x08, 0xff, // 0x0f
+    0xff, 0xff, 0xff, 0x52, 0xff, 0xff, 0xff, 0x49, // 0x17
+    0xff, 0xff, 0xff, 0xff, 0x0d, 0xff, 0xff, 0xff, // 0x1f
+    0xff, 0xff, 0xff, 0x48, 0xff, 0xff, 0xff, 0xff, // 0x27
+    0xff, 0xf3, 0xa0,                               // 0x2a
 };
 
 static VSC_VK EOSC2VK[] = {
@@ -71,13 +72,12 @@ static MODIFIERS Modifier = {
 // * wchの配列の添え字は、odifierConf.ModNumberの番号となる
 // 属性CAPLOKは、CapsLock状態の影響を受けることを示す
 static VK_TO_WCHARS2 VKOutputChar2[] = {
-    // 仮想キーコード   , キーの属性            ,        {none ,Shift }
-    {.VirtualKey = 'H',       .wch = {L'h' , L'H' }},
-    {.VirtualKey = 'I',       .wch = {L'i' , L'I' }},
-    {.VirtualKey = 'R',       .wch = {L'r' , L'R' }},
-    {.VirtualKey = VK_RETURN, .wch = {L'\n', L'\n'}},
-    {.VirtualKey = VK_BACK  , .wch = {L'\b', L'\b'}},
-    {.VirtualKey = 0  ,       .wch = {L'\0', L'\0'}}
+    {.VirtualKey = 0x48, .wch = {L'h' , L'H' }},
+    {.VirtualKey = 0x49, .wch = {L'i' , L'I' }},
+    {.VirtualKey = 0x52, .wch = {L'r' , L'R' }},
+    {.VirtualKey = 0x0d, .wch = {L'\n', L'\n'}},
+    {.VirtualKey = 0x08, .wch = {L'\b', L'\b'}},
+    {.VirtualKey = 0x00, .wch = {L'\0', L'\0'}}
 };
 
 // 出力文字リスト一覧
@@ -108,8 +108,8 @@ static KBDTABLES LayoutInfo = {
 // キーの機能テーブル
 static VK_F VKFuncTable[] = {
     {
-        .Vk = VK_OEM_AUTO ,
-        .NLSFEProcType = KBDNLS_TYPE_NORMAL,     // キーの押し下げ時にイベントを起こす
+        // 半角全角キーの操作を定義する
+        .Vk = 0xf3 ,
         .NLSFEProcCurrent = KBDNLS_INDEX_NORMAL, // NLSFEProcを最初に使用する
         .NLSFEProcSwitch = 0x00,                 // NLSFEProcAltを使用しない
         .NLSFEProc = {
