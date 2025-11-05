@@ -87,7 +87,7 @@ static VK_TO_WCHAR_TABLE OutputCharLists[] = {
 };
 
 // レイアウト情報
-KBDTABLES LayoutInfo = {
+static KBDTABLES LayoutInfo = {
     // 修飾情報
     .pCharModifiers = &Modifier,
     // 出力文字
