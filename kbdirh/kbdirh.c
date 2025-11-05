@@ -52,25 +52,21 @@ static VK_TO_BIT VKBitPos[] = {
 };
 
 // キーボードの修飾キー
-// Shift,Control,Alt,かなキーを有効な修飾キーとする
-// 下記の修飾キー押下状態のみを扱い、これらに番号を振る
-// * 1: Shiftキー押下
-// * 2: かなキー押下
+// Shiftキーを有効な修飾キーとし、Shiftが押されているパターンを1とする
 static MODIFIERS Modifier = {
     .pVkToBit = (PVK_TO_BIT)(VKBitPos),
     .wMaxModBits = 1,
     .ModNumber = {
-        //-----押下状態-----||--押下状態番号--*/              
-        /*  3,      2,    1*/ 0,
-        /*            Shift*/ 1,          
+        0, // 修飾キーが押されていない
+        1, // Shiftキーが押されている         
     }
 };
 
 // キーの出力文字
 // H, I, Rキーの出力文字を定義する
-// M扱われる修飾キー押下状態に対応する文字を、wchにて定義する
-// * wchの配列の添え字は、odifierConf.ModNumberの番号となる
-// 属性CAPLOKは、CapsLock状態の影響を受けることを示す
+// 仮想キーコードVirtualKeyの出力文字をwchに持つ
+// * wch[0]: Shiftキーが押されていない場合の文字 
+// * wch[1]: Shiftキーが押されている場合の文字
 static VK_TO_WCHARS2 VKOutputChar2[] = {
     {.VirtualKey = 0x48, .wch = {L'h' , L'H' }},
     {.VirtualKey = 0x49, .wch = {L'i' , L'I' }},
@@ -110,28 +106,35 @@ static VK_F VKFuncTable[] = {
     {
         // 半角全角キーの操作を定義する
         .Vk = 0xf3 ,
-        .NLSFEProcCurrent = KBDNLS_INDEX_NORMAL, // NLSFEProcを最初に使用する
-        .NLSFEProcSwitch = 0x00,                 // NLSFEProcAltを使用しない
+        // キーの押し下げ時にイベントを起こす
+        .NLSFEProcType = KBDNLS_TYPE_NORMAL,
+        // NLSFEProcを最初に使用する
+        .NLSFEProcCurrent = KBDNLS_INDEX_NORMAL,
+        // NLSFEProcAltを使用しない
+        .NLSFEProcSwitch = 0x00,
+        // 修飾キーの押下パターン時の操作
         .NLSFEProc = {
-        //-----押下状態-----|||------入力処理------*/ 
-        /*  3,      2,    1*/ {KBDNLS_SBCSDBCS,0},
-        /*            Shift*/ {KBDNLS_SBCSDBCS,0}, 
-        /*    Control      */ {KBDNLS_NOEVENT,0},
-        /*    Control Shift*/ {KBDNLS_NOEVENT,0},
-        /*Alt              */ {KBDNLS_NOEVENT,0},
-        /*Alt         Shift*/ {KBDNLS_NOEVENT,0},
-        /*Alt Control      */ {KBDNLS_NOEVENT,0},
-        /*Alt Control Shift*/ {KBDNLS_NOEVENT,0}
+            // IMEの半角/全角入力を切り替える
+            {KBDNLS_SBCSDBCS,0}, // 修飾キーが押されていない 
+            {KBDNLS_SBCSDBCS,0}, // Shift
+            // 何もしない
+            {KBDNLS_NOEVENT,0},  // Control
+            {KBDNLS_NOEVENT,0},  // Shift, Control
+            {KBDNLS_NOEVENT,0},  // Alt
+            {KBDNLS_NOEVENT,0},  // Shift, Alt
+            {KBDNLS_NOEVENT,0},  // Control, Alt
+            {KBDNLS_NOEVENT,0}   // Shift, Control, Alt
         },
         .NLSFEProcAlt = {
-        /*  3,      2,    1*/ {KBDNLS_NULL,0},
-        /*            Shift*/ {KBDNLS_NULL,0},
-        /*    Control      */ {KBDNLS_NULL,0},
-        /*    Control Shift*/ {KBDNLS_NULL,0},
-        /*Alt              */ {KBDNLS_NULL,0},
-        /*Alt         Shift*/ {KBDNLS_NULL,0},
-        /*Alt Control      */ {KBDNLS_NULL,0},
-        /*Alt Control Shift*/ {KBDNLS_NULL,0}
+            // 何もしない
+            {KBDNLS_NULL,0},
+            {KBDNLS_NULL,0},
+            {KBDNLS_NULL,0},
+            {KBDNLS_NULL,0},
+            {KBDNLS_NULL,0},
+            {KBDNLS_NULL,0},
+            {KBDNLS_NULL,0},
+            {KBDNLS_NULL,0}
         }
     }
 };
