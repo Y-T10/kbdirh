@@ -15,11 +15,9 @@
 
 // 広域変数のデータセクション名を指定する
 #pragma data_seg(".data")
-// キーボードデータの属性マクロを定義する
-#define ATTR_KBD_DATA
 
 // スキャンコード、仮想キーコード対応表
-static ATTR_KBD_DATA USHORT SC2VK[] = {
+static USHORT SC2VK[] = {
     0xff, 0xff, 0xff      , 0xff, 0xff    , 0xff, 0xff, 0xff, 0xff      , 0xff,
     0xff, 0xff, 0xff      , 0xff, VK_BACK , 0xff, 0xff, 0xff, 0xff      , 'R' ,
     0xff, 0xff, 0xff      , 'I' , 0xff    , 0xff, 0xff, 0xff, VK_RETURN , 0xff,
@@ -27,17 +25,17 @@ static ATTR_KBD_DATA USHORT SC2VK[] = {
     0xff, VK_OEM_AUTO | KBDSPECIAL, VK_LSHIFT ,
 };
 
-static ATTR_KBD_DATA VSC_VK EOSC2VK[] = {
+static VSC_VK EOSC2VK[] = {
     {.Vsc = 0, .Vk = 0 }
 };
 
-static ATTR_KBD_DATA VSC_VK E1SC2VK[] = {
+static VSC_VK E1SC2VK[] = {
     {.Vsc = 0, .Vk = 0 }
 };
 
 // キーの名前一覧
 // 修飾キーの名称を定義する
-static ATTR_KBD_DATA VSC_LPWSTR KeyName[] = {
+static VSC_LPWSTR KeyName[] = {
     {0x29, L"半角全角"},
     {0x2a, L"LShift"},
     {0x1c, L"改行"},
@@ -47,7 +45,7 @@ static ATTR_KBD_DATA VSC_LPWSTR KeyName[] = {
 
 // 修飾キーのビット位置を指定
 // VK_SHIFTは左右両方のShiftを表す
-static ATTR_KBD_DATA VK_TO_BIT VKBitPos[] = {
+static VK_TO_BIT VKBitPos[] = {
     { VK_SHIFT   , KBDSHIFT},
     { 0          , 0       }
 };
@@ -57,7 +55,7 @@ static ATTR_KBD_DATA VK_TO_BIT VKBitPos[] = {
 // 下記の修飾キー押下状態のみを扱い、これらに番号を振る
 // * 1: Shiftキー押下
 // * 2: かなキー押下
-static ATTR_KBD_DATA MODIFIERS Modifier = {
+static MODIFIERS Modifier = {
     .pVkToBit = (PVK_TO_BIT)(VKBitPos),
     .wMaxModBits = 1,
     .ModNumber = {
@@ -72,7 +70,7 @@ static ATTR_KBD_DATA MODIFIERS Modifier = {
 // M扱われる修飾キー押下状態に対応する文字を、wchにて定義する
 // * wchの配列の添え字は、odifierConf.ModNumberの番号となる
 // 属性CAPLOKは、CapsLock状態の影響を受けることを示す
-static ATTR_KBD_DATA VK_TO_WCHARS2 VKOutputChar2[] = {
+static VK_TO_WCHARS2 VKOutputChar2[] = {
     // 仮想キーコード   , キーの属性            ,        {none ,Shift }
     {.VirtualKey = 'H',       .wch = {L'h' , L'H' }},
     {.VirtualKey = 'I',       .wch = {L'i' , L'I' }},
@@ -83,13 +81,13 @@ static ATTR_KBD_DATA VK_TO_WCHARS2 VKOutputChar2[] = {
 };
 
 // 出力文字リスト一覧
-static ATTR_KBD_DATA VK_TO_WCHAR_TABLE OutputCharLists[] = {
+static VK_TO_WCHAR_TABLE OutputCharLists[] = {
     {(PVK_TO_WCHARS1)(VKOutputChar2) , 2, sizeof(VKOutputChar2[0])},
     {NULL, 0, 0}
 };
 
 // レイアウト情報
-ATTR_KBD_DATA KBDTABLES LayoutInfo = {
+KBDTABLES LayoutInfo = {
     // 修飾情報
     .pCharModifiers = &Modifier,
     // 出力文字
@@ -108,7 +106,7 @@ ATTR_KBD_DATA KBDTABLES LayoutInfo = {
 };
 
 // キーの機能テーブル
-static ATTR_KBD_DATA VK_F VKFuncTable[] = {
+static VK_F VKFuncTable[] = {
     {
         .Vk = VK_OEM_AUTO ,
         .NLSFEProcType = KBDNLS_TYPE_NORMAL,     // キーの押し下げ時にイベントを起こす
@@ -139,7 +137,7 @@ static ATTR_KBD_DATA VK_F VKFuncTable[] = {
 };
 
 //  言語固有のレイアウト情報
-static ATTR_KBD_DATA KBDNLSTABLES NLSInfo = {
+static KBDNLSTABLES NLSInfo = {
     .NumOfMouseVKey = 0,
     .pusMouseVKey = NULL,
     .pVkToF = VKFuncTable,
