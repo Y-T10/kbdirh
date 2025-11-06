@@ -47,8 +47,8 @@ static VSC_LPWSTR KeyName[] = {
 // 修飾キーのビット位置を指定
 // VK_SHIFTは左右両方のShiftを表す
 static VK_TO_BIT VKBitPos[] = {
-    { VK_SHIFT   , KBDSHIFT},
-    { 0          , 0       }
+    { 0xa0, 0x1 },
+    { 0x00, 0x0 }
 };
 
 // キーボードの修飾キー
