@@ -86,12 +86,10 @@ static VK_TO_WCHAR_TABLE OutputCharLists[] = {
 static KBDTABLES LayoutInfo = {
     // 修飾情報
     .pCharModifiers = &Modifier,
-    // 出力文字
-    .pVkToWcharTable = OutputCharLists,
     // キー名
     .pKeyNames = KeyName,
-    .pKeyNamesExt = NULL,
-    .pKeyNamesDead = NULL,
+    // 出力文字
+    .pVkToWcharTable = OutputCharLists,
     // スキャンコード変換情報
     .pusVSCtoVK = SC2VK,
     .bMaxVSCtoVK = sizeof(SC2VK) / sizeof(SC2VK[0]),
