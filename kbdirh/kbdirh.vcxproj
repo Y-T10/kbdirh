@@ -123,7 +123,7 @@
     </ClCompile>
     <Link>
       <ModuleDefinitionFile>kbdirh.def</ModuleDefinitionFile>
-      <AdditionalOptions>%(AdditionalOptions) -merge:.edata=.data -merge:.rdata=.data -merge:.bss=.data -section:.data,r /ignore:4254</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) -merge:.rdata=.data -merge:.bss=.data /ignore:4254</AdditionalOptions>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <NoEntryPoint>true</NoEntryPoint>
     </Link>
